@@ -9,6 +9,10 @@ help: ## This help.
 
 BRANCH_DEFAULT = main
 
+cli_db_common: ## Enter to container console from Database
+	@echo "Entering to container console from Database"
+	@docker-compose exec mysql bash
+
 start_common:  ## Start the applications common locally
 	@echo "Starting the applications common locally"
 	@echo "\033[0;32mStart Up docker compose"
