@@ -62,6 +62,14 @@ logs_coopbam:  ## Show the all Logs from the application COOPBAM
 	@echo "Showing all logs for every container"
 	@cd apps/coopbam && make logs
 
+cli_coopbam: ## Enter to container console from COOPBAM
+	@echo "Entering to container console from COOPBAM"
+	@docker exec -ti api_coopbam sh
+
+cli_coopbam_node: ## Enter to container console from COOPBAM NODE
+	@echo "Entering to container console from COOPBAM NODE"
+	@docker exec -ti node_coopbam sh
+
 db_create_acopagro: ## DB Create acopagro
 	@echo "Create database acopagro"
 	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE acopagro CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
