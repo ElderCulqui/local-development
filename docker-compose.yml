@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 networks:
   local_network:
@@ -9,13 +9,9 @@ services:
   proxy:
     image: nginx
     container_name: local_proxy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.local_proxy.rule=Host(`coopbam.localhost`)"
-      - "traefik.http.routers.local_proxy.entrypoints=web"
     restart: always
     ports:
-      - "8089:80"
+      - "80:80"
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
       - ./docker/nginx/nginx-coopbam.conf:/etc/nginx/nginx.conf
@@ -46,3 +42,4 @@ services:
 
 volumes:
   local_db_data:
+    driver: local
