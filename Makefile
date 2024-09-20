@@ -105,3 +105,39 @@ status_acopagro:  ## Status the application ACOPAGRO
 logs_acopagro:  ## Show the all Logs from the application ACOPAGRO
 	@echo "Showing all logs for every container"
 	@cd apps/acopagro && make logs
+
+db_create_sunarp: ## DB Create sunarp
+	@echo "Create database sunarp"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE sunarp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
+
+db_drop_sunarp: ## DB Drop sunarp
+	@echo "Drop database sunarp"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE sunarp;'"
+
+start_sunarp:  ## Start the applications SUNARP locally
+	@echo "Starting the application SUNARP locally"
+	@echo "\033[0;32mProject SUNARP."
+	@cd apps/sunarp && make start && cd ../
+	@cp docker/nginx/conf.d/sunarp.conf.dist docker/nginx/conf.d/sunarp.conf
+	@echo "\033[0;32mStart Up docker compose"
+	@docker-compose up -d
+
+stop_sunarp:  ## Stop the application SUNARP
+	@echo "Stopping the application SUNARP"
+	@cd apps/sunarp && make stop && cd ../
+	@rm docker/nginx/conf.d/sunarp.conf
+	@docker-compose up -d
+
+restart_sunarp:  ## Restart the application SUNARP
+	@echo "Restarting the application SUNARP"
+	@cd apps/sunarp && make restart && cd ../
+	@docker-compose restart
+
+status_sunarp:  ## Status the application SUNARP
+	@echo "Showing the status for the application SUNARP"
+	@cd apps/sunarp && make status && cd ../
+	@docker-compose ps
+
+logs_sunarp:  ## Show the all Logs from the application SUNARP
+	@echo "Showing all logs for every container"
+	@cd apps/sunarp && make logs
