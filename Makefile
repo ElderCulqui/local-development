@@ -141,3 +141,4 @@ status_sunarp:  ## Status the application SUNARP
 logs_sunarp:  ## Show the all Logs from the application SUNARP
 	@echo "Showing all logs for every container"
 	@cd apps/sunarp && make logs
+	

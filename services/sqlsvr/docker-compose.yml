@@ -1,0 +1,25 @@
+version: '3.9'
+
+networks:
+  local_network:
+    external: true
+    name: local_network
+
+services:
+  sqlsrv:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlsrv
+    networks:
+      - local_network
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password12345*
+    ports:
+      - '1433:1433'
+    volumes:
+      - sqlsvr_data:/var/opt/mssql
+      - ./data:/usr/shared:rw
+
+volumes:
+  sqlsvr_data:
+    driver: local
