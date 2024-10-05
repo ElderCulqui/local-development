@@ -142,3 +142,38 @@ logs_sunarp:  ## Show the all Logs from the application SUNARP
 	@echo "Showing all logs for every container"
 	@cd apps/sunarp && make logs
 	
+db_create_modulo_consulta: ## DB Create modulo_consulta
+	@echo "Create database modulo_consulta"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE modulo_consulta CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
+
+db_drop_modulo_consulta: ## DB Drop modulo_consulta
+	@echo "Drop database modulo_consulta"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE modulo_consulta;'"
+
+start_modulo_consulta:  ## Start the applications MODULO CONSULTA locally
+	@echo "Starting the application MODULO CONSULTA locally"
+	@echo "\033[0;32mProject MODULO CONSULTA."
+	@cd apps/modulo_consulta && make start && cd ../
+	@cp docker/nginx/conf.d/modulo_consulta.conf.dist docker/nginx/conf.d/modulo_consulta.conf
+	@echo "\033[0;32mStart Up docker compose"
+	@docker-compose up -d
+
+stop_modulo_consulta:  ## Stop the application MODULO CONSULTA
+	@echo "Stopping the application MODULO CONSULTA"
+	@cd apps/modulo_consulta && make stop && cd ../
+	@rm docker/nginx/conf.d/modulo_consulta.conf
+	@docker-compose up -d
+
+restart_modulo_consulta:  ## Restart the application MODULO CONSULTA
+	@echo "Restarting the application MODULO CONSULTA"
+	@cd apps/modulo_consulta && make restart && cd ../
+	@docker-compose restart
+
+status_modulo_consulta:  ## Status the application MODULO CONSULTA
+	@echo "Showing the status for the application MODULO CONSULTA"
+	@cd apps/modulo_consulta && make status && cd ../
+	@docker-compose ps
+
+logs_modulo_consulta:  ## Show the all Logs from the application MODULO CONSULTA
+	@echo "Showing all logs for every container"
+	@cd apps/modulo_consulta && make logs
