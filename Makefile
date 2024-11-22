@@ -177,3 +177,47 @@ status_modulo_consulta:  ## Status the application MODULO CONSULTA
 logs_modulo_consulta:  ## Show the all Logs from the application MODULO CONSULTA
 	@echo "Showing all logs for every container"
 	@cd apps/modulo_consulta && make logs
+
+db_create_passion: ## DB Create passion
+	@echo "Create database passion"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE passion CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
+
+db_drop_passion: ## DB Drop passion
+	@echo "Drop database passion"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE passion;'"
+
+start_passion:  ## Start the applications passion locally
+	@echo "Starting the application PASSION locally"
+	@echo "\033[0;32mProject PASSION."
+	@cd apps/passion-asistencia && make start && cd ../
+	@cp docker/nginx/conf.d/passion.conf.dist docker/nginx/conf.d/passion.conf
+	@echo "\033[0;32mStart Up docker compose"
+	@docker-compose up -d
+
+stop_passion:  ## Stop the application PASSION
+	@echo "Stopping the application PASSION"
+	@cd apps/passion-asistencia && make stop && cd ../
+	@rm docker/nginx/conf.d/passion.conf
+	@docker-compose up -d
+
+restart_passion:  ## Restart the application PASSION
+	@echo "Restarting the application PASSION"
+	@cd apps/passion-asistencia && make restart && cd ../
+	@docker-compose restart
+
+status_passion:  ## Status the application PASSION
+	@echo "Showing the status for the application PASSION"
+	@cd apps/passion-asistencia && make status && cd ../
+	@docker-compose ps
+
+logs_passion:  ## Show the all Logs from the application PASSION
+	@echo "Showing all logs for every container"
+	@cd apps/passion-asistencia && make logs
+
+cli_passion: ## Enter to container console from PASSION
+	@echo "Entering to container console from PASSION"
+	@docker exec -ti api_passion sh
+
+cli_passion_node: ## Enter to container console from PASSION NODE
+	@echo "Entering to container console from PASSION NODE"
+	@docker exec -ti node_passion sh
