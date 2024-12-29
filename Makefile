@@ -221,3 +221,48 @@ cli_passion: ## Enter to container console from PASSION
 cli_passion_node: ## Enter to container console from PASSION NODE
 	@echo "Entering to container console from PASSION NODE"
 	@docker exec -ti node_passion sh
+
+
+db_create_solidaridad: ## DB Create solidaridad
+	@echo "Create database solidaridad"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE solidaridad CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
+
+db_drop_solidaridad: ## DB Drop solidaridad
+	@echo "Drop database solidaridad"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE solidaridad;'"
+
+start_solidaridad:  ## Start the applications solidaridad locally
+	@echo "Starting the application SOLIDARIDAD locally"
+	@echo "\033[0;32mProject SOLIDARIDAD."
+	@cd apps/solidaridad && make start && cd ../
+	@cp docker/nginx/conf.d/solidaridad.conf.dist docker/nginx/conf.d/solidaridad.conf
+	@echo "\033[0;32mStart Up docker compose"
+	@docker-compose up -d
+
+stop_solidaridad:  ## Stop the application solidaridad
+	@echo "Stopping the application solidaridad"
+	@cd apps/solidaridad && make stop && cd ../
+	@rm docker/nginx/conf.d/solidaridad.conf
+	@docker-compose up -d
+
+restart_solidaridad:  ## Restart the application solidaridad
+	@echo "Restarting the application solidaridad"
+	@cd apps/solidaridad && make restart && cd ../
+	@docker-compose restart
+
+status_solidaridad:  ## Status the application solidaridad
+	@echo "Showing the status for the application solidaridad"
+	@cd apps/solidaridad && make status && cd ../
+	@docker-compose ps
+
+logs_solidaridad:  ## Show the all Logs from the application solidaridad
+	@echo "Showing all logs for every container"
+	@cd apps/solidaridad && make logs
+
+cli_solidaridad: ## Enter to container console from solidaridad
+	@echo "Entering to container console from solidaridad"
+	@docker exec -ti api_solidaridad sh
+
+cli_solidaridad_node: ## Enter to container console from solidaridad NODE
+	@echo "Entering to container console from solidaridad NODE"
+	@docker exec -ti node_solidaridad sh
