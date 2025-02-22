@@ -1,0 +1,26 @@
+version: '3.9'
+
+networks:
+  local_network:
+    external: true
+    name: local_network
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: pgsql
+    networks:
+      - local_network
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - POSTGRES_USER=usr
+      - POSTGRES_DB=saeta_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data
+      - ./data:/usr/shared:rw
+
+volumes:
+  pgsql_data:
+    driver: local
