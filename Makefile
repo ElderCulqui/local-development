@@ -179,12 +179,12 @@ logs_modulo_consulta:  ## Show the all Logs from the application MODULO CONSULTA
 	@cd apps/modulo_consulta && make logs
 
 db_create_passion: ## DB Create passion
-	@echo "Create database passion"
-	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE passion CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
+	@echo "Create database asistencias"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE asistencias CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
 
 db_drop_passion: ## DB Drop passion
-	@echo "Drop database passion"
-	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE passion;'"
+	@echo "Drop database asistencias"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE asistencias;'"
 
 start_passion:  ## Start the applications passion locally
 	@echo "Starting the application PASSION locally"
