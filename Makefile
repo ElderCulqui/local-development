@@ -266,3 +266,48 @@ cli_solidaridad: ## Enter to container console from solidaridad
 cli_solidaridad_node: ## Enter to container console from solidaridad NODE
 	@echo "Entering to container console from solidaridad NODE"
 	@docker exec -ti node_solidaridad sh
+
+
+start_liam_diario:  ## Start the applications liam_diario locally
+	@echo "Starting the application LIAM DIARIO locally"
+	@echo "\033[0;32mProject LIAM DIARIO."
+	@cd apps/liam-diario && make start && cd ../
+	@cp docker/nginx/conf.d/liam_diario.conf.dist docker/nginx/conf.d/liam_diario.conf
+	@echo "\033[0;32mStart Up docker compose"
+	@docker-compose up -d
+
+stop_liam_diario:  ## Stop the application liam_diario
+	@echo "Stopping the application liam_diario"
+	@cd apps/liam-diario && make stop && cd ../
+	@rm docker/nginx/conf.d/liam_diario.conf
+	@docker-compose up -d
+
+restart_liam_diario:  ## Restart the application liam_diario
+	@echo "Restarting the application liam_diario"
+	@cd apps/liam-diario && make restart && cd ../
+	@docker-compose restart
+
+status_liam_diario:  ## Status the application liam_diario
+	@echo "Showing the status for the application liam_diario"
+	@cd apps/liam-diario && make status && cd ../
+	@docker-compose ps
+
+logs_liam_diario:  ## Show the all Logs from the application liam_diario
+	@echo "Showing all logs for every container"
+	@cd apps/liam-diario && make logs
+
+cli_liam_diario: ## Enter to container console from liam_diario
+	@echo "Entering to container console from liam_diario"
+	@docker exec -ti web_liam_diario sh
+
+cli_liam_diario_node: ## Enter to container console from liam_diario NODE
+	@echo "Entering to container console from liam_diario NODE"
+	@docker exec -ti node_liam_diario sh
+
+db_create_liam_diario: ## DB Create liam diario
+	@echo "Create database liam diario"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE liam_diario CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
+
+db_drop_liam_diario: ## DB Drop liam diario
+	@echo "Drop database liam diario"
+	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE liam_diario;'"

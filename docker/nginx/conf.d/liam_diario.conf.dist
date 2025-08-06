@@ -1,0 +1,23 @@
+server {
+        server_name             liam_diario.localhost;
+        listen                  80;
+        location / {
+            proxy_pass              http://web_liam_diario:80;
+            proxy_set_header        X-Real-IP               $remote_addr;
+            proxy_set_header        X-Forwarded-For         $proxy_add_x_forwarded_for;
+            proxy_set_header        host                    $host;
+            proxy_set_header        X-Forwarded-Server      $host;
+        }
+        location /_vite/ {
+            proxy_pass              http://node_liam_diario:3009;
+            proxy_set_header        X-Real-IP $remote_addr;
+            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header        Host $host;
+            proxy_set_header        X-Forwarded-Server $host;
+        }
+
+        location /assets/ {
+            root /Users/elderculqui/Projects/liam_diario/public;
+            try_files $uri $uri/ =404;
+        }
+}
