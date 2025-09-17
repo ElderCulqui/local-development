@@ -311,3 +311,23 @@ db_create_liam_diario: ## DB Create liam diario
 db_drop_liam_diario: ## DB Drop liam diario
 	@echo "Drop database liam diario"
 	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE liam_diario;'"
+
+
+start_api_helios:  ## Start the applications api_helios locally
+	@echo "Starting the application LIAM DIARIO locally"
+	@echo "\033[0;32mProject HELIOS API."
+	@cd apps/helios-backend && make start && cd ../
+	@cp docker/nginx/conf.d/api_helios.conf.dist docker/nginx/conf.d/api_helios.conf
+	@echo "\033[0;32mStart Up docker compose"
+	@docker-compose up -d
+
+stop_api_helios:  ## Stop the application api_helios
+	@echo "Stopping the application api_helios"
+	@cd apps/liam-diario && make stop && cd ../
+	@rm docker/nginx/conf.d/api_helios.conf
+	@docker-compose up -d
+
+restart_api_helios:  ## Restart the application api_helios
+	@echo "Restarting the application api_helios"
+	@cd apps/liam-diario && make restart && cd ../
+	@docker-compose restart
