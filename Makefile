@@ -323,7 +323,7 @@ start_api_helios:  ## Start the applications api_helios locally
 
 stop_api_helios:  ## Stop the application api_helios
 	@echo "Stopping the application api_helios"
-	@cd apps/liam-diario && make stop && cd ../
+	@cd apps/helios-backend && make stop && cd ../
 	@rm docker/nginx/conf.d/api_helios.conf
 	@docker-compose up -d
 
