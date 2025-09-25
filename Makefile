@@ -178,49 +178,49 @@ logs_modulo_consulta:  ## Show the all Logs from the application MODULO CONSULTA
 	@echo "Showing all logs for every container"
 	@cd apps/modulo_consulta && make logs
 
-db_create_passion: ## DB Create passion
-	@echo "Create database asistencias"
+db_create_rani: ## DB Create RANI
+	@echo "Create database rani"
 	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'CREATE DATABASE asistencias CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'"
 
-db_drop_passion: ## DB Drop passion
+db_drop_rani: ## DB Drop rani
 	@echo "Drop database asistencias"
 	@docker-compose exec mysql sh -c "mysql -uroot -psecret -e 'DROP DATABASE asistencias;'"
 
-start_passion:  ## Start the applications passion locally
-	@echo "Starting the application PASSION locally"
-	@echo "\033[0;32mProject PASSION."
-	@cd apps/passion-asistencia && make start && cd ../
-	@cp docker/nginx/conf.d/passion.conf.dist docker/nginx/conf.d/passion.conf
+start_rani:  ## Start the applications rani locally
+	@echo "Starting the application RANI locally"
+	@echo "\033[0;32mProject RANI."
+	@cd apps/rani && make start && cd ../
+	@cp docker/nginx/conf.d/rani.conf.dist docker/nginx/conf.d/rani.conf
 	@echo "\033[0;32mStart Up docker compose"
 	@docker-compose up -d
 
-stop_passion:  ## Stop the application PASSION
-	@echo "Stopping the application PASSION"
-	@cd apps/passion-asistencia && make stop && cd ../
-	@rm docker/nginx/conf.d/passion.conf
+stop_rani:  ## Stop the application RANI
+	@echo "Stopping the application RANI"
+	@cd apps/rani && make stop && cd ../
+	@rm docker/nginx/conf.d/rani.conf
 	@docker-compose up -d
 
-restart_passion:  ## Restart the application PASSION
-	@echo "Restarting the application PASSION"
-	@cd apps/passion-asistencia && make restart && cd ../
+restart_rani:  ## Restart the application RANI
+	@echo "Restarting the application RANI"
+	@cd apps/rani && make restart && cd ../
 	@docker-compose restart
 
-status_passion:  ## Status the application PASSION
-	@echo "Showing the status for the application PASSION"
-	@cd apps/passion-asistencia && make status && cd ../
+status_rani:  ## Status the application RANI
+	@echo "Showing the status for the application RANI"
+	@cd apps/rani && make status && cd ../
 	@docker-compose ps
 
-logs_passion:  ## Show the all Logs from the application PASSION
+logs_rani:  ## Show the all Logs from the application RANI
 	@echo "Showing all logs for every container"
-	@cd apps/passion-asistencia && make logs
+	@cd apps/rani && make logs
 
-cli_passion: ## Enter to container console from PASSION
-	@echo "Entering to container console from PASSION"
-	@docker exec -ti api_passion sh
+cli_rani: ## Enter to container console from RANI
+	@echo "Entering to container console from RANI"
+	@docker exec -ti api_rani sh
 
-cli_passion_node: ## Enter to container console from PASSION NODE
-	@echo "Entering to container console from PASSION NODE"
-	@docker exec -ti node_passion sh
+cli_rani_node: ## Enter to container console from RANI NODE
+	@echo "Entering to container console from RANI NODE"
+	@docker exec -ti node_rani sh
 
 
 db_create_solidaridad: ## DB Create solidaridad
