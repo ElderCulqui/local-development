@@ -1,6 +1,7 @@
 server {
         server_name             acopagro-web.localhost;
         listen                  80;
+        client_max_body_size    10M;
         location / {
             proxy_pass              http://acopagro:80;
             proxy_set_header        X-Real-IP               $remote_addr;
