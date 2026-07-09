@@ -1,0 +1,21 @@
+networks:
+  local_network:
+    external: true
+    name: local_network
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9010:9000"
+      - "9443:9443"
+    networks:
+      - local_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:

@@ -18,6 +18,8 @@ services:
 
 networks:
   local_network:
+    external: true
+    name: local_network
 
 volumes:
   redis-data:
