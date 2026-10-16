@@ -8,9 +8,9 @@ services:
     image: portainer/portainer-ce:latest
     container_name: portainer
     restart: always
-    ports:
-      - "9010:9000"
-      - "9443:9443"
+    # ports:
+      # - "127.0.0.1:9010:9000"
+      # - "127.0.0.1:9443:9443"
     networks:
       - local_network
     volumes:

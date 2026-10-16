@@ -11,9 +11,9 @@ services:
     container_name: local_proxy
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
-      - "81:81"
+      - "100.104.86.51:80:80"
+      - "100.104.86.51:443:443"
+      - "100.104.86.51:81:81"
     volumes:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
@@ -26,8 +26,6 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "3000:3000/tcp"   # setup inicial
-      - "3001:80/tcp"       # UI después del setup
     volumes:
       - adguard_work:/opt/adguardhome/work
       - adguard_conf:/opt/adguardhome/conf
@@ -48,7 +46,7 @@ services:
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     ports:
-      - '${FORWARD_DB_PORT:-3306}:3306'
+      - '127.0.0.1:${FORWARD_DB_PORT:-3306}:3306'
     volumes:
       - ./data:/app:rw
       - local_db_data:/var/lib/mysql
