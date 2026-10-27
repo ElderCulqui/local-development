@@ -11,9 +11,9 @@ services:
     container_name: local_proxy
     restart: always
     ports:
-      - "100.104.86.51:80:80"
-      - "100.104.86.51:443:443"
-      - "100.104.86.51:81:81"
+      - "100.66.71.24:80:80"
+      - "100.66.71.24:443:443"
+      - "100.66.71.24:81:81"
     volumes:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
