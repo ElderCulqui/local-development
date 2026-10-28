@@ -9,7 +9,7 @@ help: ## This help.
 
 cli: ## Enter to container console from Database
 	@echo "Entering to container console from Database"
-	@docker-compose exec postgres bash
+	@docker-compose exec postgres sh
 
 build:  ## Start the applications postgres locally
 	@echo "Starting the applications postgres locally"
@@ -28,11 +28,3 @@ restart:  ## Restart the applications postgres
 stop:  ## Stop the applications postgres
 	@echo "Stopping the applications postgres"
 	@docker-compose down
-
-create_saeta: ## DB Create saeta sunarp
-	@echo "Create database saeta"
-	docker-compose exec postgres sh -c "psql -U usr -d postgres -c 'CREATE DATABASE saeta_db;'"
-
-drop_saeta: ## DB Drop saeta
-	@echo "Drop database saeta"
-	docker-compose exec postgres sh -c "psql -U usr -d postgres -c 'DROP DATABASE saeta_db;'"

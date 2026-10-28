@@ -1,5 +1,3 @@
-version: '3.9'
-
 networks:
   local_network:
     external: true
@@ -7,20 +5,27 @@ networks:
 
 services:
   postgres:
-    image: postgres:14-alpine
+    image: postgres:17-alpine
     container_name: pgsql
+    restart: unless-stopped
     networks:
       - local_network
+    env_file: .env
     environment:
-      - POSTGRES_PASSWORD=S3cret
       - POSTGRES_USER=usr
-      - POSTGRES_DB=saeta_db
+      - POSTGRES_DB=local_db
     ports:
       - '127.0.0.1:5432:5432'
     volumes:
       - pgsql_data:/var/lib/postgresql/data
       - ./data:/usr/shared:rw
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U usr -d local_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgsql_data:
+    name: pgsql_data
     driver: local
